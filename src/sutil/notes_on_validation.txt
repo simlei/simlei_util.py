@@ -1,0 +1,63 @@
+""" Validation
+        Invalid(NonemptyList)
+        Valid(object)
+        combine(Validation, Validation) 
+"""
+
+""" 
+Conversion: No!
+everything is taken as is, clients should implement that themselves.
+
+Validation
+Termini: Subject, Result ~ Pass(Subject) | Failure(subject, failurerecord), Validator
+complete Validator will be one object, that is composed
+    one method: validate: Subject -> Result
+validation is done in steps... that are controlled externally...
+-> represent it using instance-global Validation container 
+    - to the attrs handler, different callables have to be presented
+    - represent entry points to different steps inbetween which happens initialization
+        - scheme: no step fails by itself, but tells the instance object it is finished, plus result
+    - at the first entry point (singleton like at each actually) the global Validation is
+      contacted
+
+Wunschinterface Validator():
+ * validate(obj, ) -> Result ~ Pass(validator, obj) | Failure(validator, object, [Errors])
+
+Result
+ * 
+
+
+
+MultiValidator(instance)
+ + Semigroup
+ + steps is [Validator]
+ * validate
+
+ValidatorStep is actu
+
+PatientStepValidator(instance, initSteps=[]) provides MultiValidator
+ + _multiValidator <- changes with incoming steps
+ * registerAttrib() <- mutate multivalidator
+ * validate(obj) -> Result ~ Pass(validator, obj) | Failure(validator, object, [Errors])
+
+
+ValidationStep()
+ * __call__(self, instance, attrib, value) - registers itself with global instance
+ * 
+
+
+
+adaption like:
+    - each step is just registering itself with the validator, which will know when all have arrived
+    - then, it goes to work. for now, no fail-fast strategy: PatientValidator vs. EagerValidator.
+    
+
+
+ValidationSubject(inst, attribute, value)
+-> validate(subj) -> Result = Pass(subj) | Failure(subj, )
+
+-> has a dict of already validated attributes
+
+subject: the attr instance
+"""
+
